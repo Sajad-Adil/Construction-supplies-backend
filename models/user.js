@@ -24,13 +24,12 @@ const userSchema = new mongoose.Schema({
     city: String,
     district: String,
 
-    role: {
+        role: {
         type: String,
         require: true,
-        default: 'user' }
+        default: 'User' }
     }
 )
-
 
 module.exports = User = mongoose.model('user', userSchema)
 

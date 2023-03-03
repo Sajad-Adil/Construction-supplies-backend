@@ -25,8 +25,11 @@ const updateUser = async (req, res) => {
         return res.status(204).json({ "message": `No user matches ID ${req.body.id}.` });
     }
     if (req.body?.name) user.name = req.body.name;
-    if (req.body?.email) user.email = req.body.email;
     if (req.body?.phoneNumber) user.phoneNumber = req.body.phoneNumber;
+    if (req.body?.email) user.email = req.body.email;
+    if (req.body?.roles) user.roles = req.body.roles;
+
+
     const result = await user.save();
     res.json(result);
 }

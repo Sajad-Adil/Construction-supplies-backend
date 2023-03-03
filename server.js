@@ -4,19 +4,34 @@ const mongoose = require('mongoose');
 const app = express();
 const connectDB = require('./config/dbConn')
 const registerRouter = require('./routes/registerRouter');
+//const { request } = require('express');
 const authRouter = require('./routes/authRouter');
 const verifyJWT = require('./middlewares/verifyJWT');
 const refreshToken = require('./routes/refreshRouter')
 const cookieParser = require('cookie-parser');
+
 const userRouter = require('./routes/userRouter')
+const searchRouter = require('./routes/searchRouter')
+const storeRouter = require('./routes/storeRouter');
+const verifyRoles = require('./middlewares/verifyRoles');
+
+
+const productRouter = require('./routes/productRouter')
+
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/register", registerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
 
-app.use(verifyJWT);
+
+//app.use('/logout', handleLogout);
+//app.use(verifyJWT);
+//app.use(verifyRoles);
 app.use("/api/user", userRouter);
+app.use("/api/search", searchRouter);
+app.use("/api/store",storeRouter);
+app.use("/api/product",productRouter);
 
 
 connectDB();

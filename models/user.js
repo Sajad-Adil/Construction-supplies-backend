@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const Joi = require("joi")
-Joi.objectId = require('joi-objectid')(Joi)
+
 
 const userSchema = new mongoose.Schema({
     phoneNumber: {
@@ -24,13 +23,20 @@ const userSchema = new mongoose.Schema({
     city: String,
     district: String,
 
-        role: {
-        type: String,
-        require: true,
-        default: 'User' }
+    roles: {
+        User: {
+            type: Number,
+            default: 3000
+        },
+        Editor: Number,
+        Admin: Number
+    },
     }
 )
 
+
+userSchema.index({name: 'text'});
 module.exports = User = mongoose.model('user', userSchema)
+
 
 

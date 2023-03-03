@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user')
-//const { User, validate_user } = require('../models/user')
+const { validateUser } = require('../models/validation/validateUser')
 const handleNewUser = async (req, res) => {
 
-    // const { error } = validate_user(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
     
     const { phoneNumber, password ,email, name, latitude, longitude, city, district, role } = req.body;
     if (!phoneNumber || !password) return res.status(400).json({ 'message': 'Phone number and password are required.' });
@@ -26,7 +26,7 @@ const handleNewUser = async (req, res) => {
             "longitude": longitude,
             "city": city,
             "district": district,
-            "role": role
+            "roles": {}
         });
 
         console.log(result);

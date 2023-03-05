@@ -6,13 +6,11 @@ const Category = new mongoose.Schema({
     categoryName: { type: String, 
         require: true, 
         unique: true },
-    description: { 
-        type: String, 
-        require: true },
+
     image: { 
         type: String, 
         require: false },
-    timestamps: true
+    createdAt: date.now
 })
 
 function validateCategory(category) {
@@ -28,5 +26,7 @@ function validateCategory(category) {
     
 return Joi.validate(category, schema);
 }
-module.exports = mongoose.model('category', Category);
+module.exports = Category = mongoose.model('category', Category);
 exports.validate = validateCategory;
+
+

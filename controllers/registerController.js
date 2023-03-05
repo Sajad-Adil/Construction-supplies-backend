@@ -6,8 +6,8 @@ const handleNewUser = async (req, res) => {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
-    const { phoneNumber, password ,email, name, latitude, longitude, city, district, role } = req.body;
-    if (!phoneNumber || !password) return res.status(400).json({ 'message': 'Phone number and password are required.' });
+    const { phoneNumber, password ,email, name, latitude, longitude, city, district, roles } = req.body;
+    if (!phoneNumber || !password ) return res.status(400).json({ 'message': 'Phone number and password are required.' });
 
 
     const duplicate = await User.findOne({ phoneNumber: phoneNumber }).exec();
@@ -26,7 +26,7 @@ const handleNewUser = async (req, res) => {
             "longitude": longitude,
             "city": city,
             "district": district,
-            "roles": {}
+            "roles": roles
         });
 
         console.log(result);

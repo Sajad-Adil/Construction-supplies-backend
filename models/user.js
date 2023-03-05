@@ -27,10 +27,12 @@ const userSchema = new mongoose.Schema({
         User: {
             type: Number,
             default: 3000
+            
         },
-        Editor: Number,
+        Master: Number,
         Admin: Number
     },
+    refreshToken: String
     }
 )
 

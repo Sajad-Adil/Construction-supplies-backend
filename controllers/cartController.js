@@ -1,5 +1,5 @@
 const Cart = require('../models/cart');
-//const { validateCart } = require('../models/validation/validateCart')
+const { validateCart } = require('../models/validation/validateCart')
 
 // Master Only
 const getAllCarts = async (req, res) => {
@@ -7,7 +7,6 @@ const getAllCarts = async (req, res) => {
     if (!carts) return res.status(204).json({ 'message': 'No carts found' });
     res.json(carts);
 }
-
 
 const getCart = async (req, res) => {
     if (!req?.params?.id) return res.status(400).json({ "message": 'Cart ID required' });
@@ -19,11 +18,11 @@ const getCart = async (req, res) => {
 }
 
 const createCart = async (req, res) => {
-    // const { error } = validateCart(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
+    const { error } = validateCart(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
     const { productId, quantity } = req.body;
-
-    const userId = "63ff0742045724b61f79afba"; // the logged in user id
+    
+    const userId = req.userId; // the logged in user id
 
     try {
     let cart = await Cart.findOne({ userId });
@@ -57,7 +56,7 @@ const createCart = async (req, res) => {
 }
 
 const removeItem = async (req, res) => {
-    const userId = "63ff0742045724b61f79afba"; 
+    const userId = req.userId;
     let productId = req.body.productId;
 
     let cart = await Cart.findOne({ userId: userId });

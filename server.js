@@ -4,18 +4,17 @@ const mongoose = require('mongoose');
 const app = express();
 const connectDB = require('./config/dbConn')
 const registerRouter = require('./routes/registerRouter');
-//const { request } = require('express');
 const authRouter = require('./routes/authRouter');
 const verifyJWT = require('./middlewares/verifyJWT');
-const refreshToken = require('./routes/refreshRouter');
+const refreshToken = require('./routes/refreshRouter')
 const cookieParser = require('cookie-parser');
-
-const userRouter = require('./routes/userRouter');
-const searchRouter = require('./routes/searchRouter');
+const handleLogout = require('./routes/logoutRouter')
+const userRouter = require('./routes/userRouter')
+const searchRouter = require('./routes/searchRouter')
 const storeRouter = require('./routes/storeRouter');
 const cartRouter = require('./routes/cartRouter');
-const verifyRoles = require('./middlewares/verifyRoles');
-const productRouter = require('./routes/productRouter');
+const orderRouter = require('./routes/orderRouter');
+const productRouter = require('./routes/productRouter')
 
 app.use(express.json())
 app.use(cookieParser())
@@ -24,14 +23,17 @@ app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
 
 
-//app.use('/logout', handleLogout);
-//app.use(verifyJWT);
-//app.use(verifyRoles);
-app.use("/api/cart",cartRouter);
+app.use('/logout', handleLogout);
 app.use("/api/user", userRouter);
 app.use("/api/search", searchRouter);
-app.use("/api/store",storeRouter);
-app.use("/api/product",productRouter);
+
+app.use("/api/store",storeRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/product",productRouter)
+app.use(verifyJWT);
+app.use("/api/order",orderRouter);
+
+
 
 
 connectDB();

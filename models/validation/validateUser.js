@@ -15,7 +15,7 @@ function validateUser(user) {
         latitude: Joi.number().required(),
         city: Joi.string(),
         district: Joi.string(),
-        roles: Joi.string()
+        roles: Joi.object()
     })
     
 return schema.validate(user);

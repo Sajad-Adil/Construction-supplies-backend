@@ -1,82 +1,16 @@
-const express = require("express")
-const router = express.Router()
-const validateObjectId = require("./middleware/validateObjectId");
+const express = require('express');
+const router = express.Router();
+const { getOrdersByStore, getOrder, createOrder, deleteOrder} = require('../controllers/orderController');
+const ROLES_LIST = require('../config/rolesList');
+const verifyRoles = require('../middlewares/verifyRoles');
 
-const  { Order, validate }  = require("../models/order")
+console.log(ROLES_LIST.Admin)
+router.route('/')
+    .get(verifyRoles(ROLES_LIST.Master),getOrdersByStore)
+    .post(verifyRoles(ROLES_LIST.User),createOrder)
+    .delete(verifyRoles(ROLES_LIST.User),deleteOrder)
 
-router.get("/", async (req, res) => {
-    const orders = await Order.find()
-    res.send(orders)
-    try {
-    const orders = await Order.find();
-    res.json(orders);
-} catch (err) {
-    res.status(500).json({ message: err.message });
-}
-    
-})
+router.route('/:id')
+    .get(getOrder);
 
-router.get("/:id", validateObjectId, async (req, res) => {
-    const order = await Order.findById(req.params.id);
-    if (!order)
-        return res.status(404).send("The order with the given ID was not found.");
-
-    res.send(order);
-});
-
-router.post("/", async (req, res) => {
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-const order = new Order({
-        userID: req.body.userID,
-        storeID: req.body.storeID,
-        totalPrice: req.body.totalPrice,
-        quantity: req.body.quantity
-});
-await order.save((err) => {
-        if (err) {
-            return res.status(500).send(err)
-        }
-        res.status(200).json({ message: 'Order created successfully' })
-});
-});
-
-router.put("/:id",async (req, res) => { 
-    const id = req.params.id
-    const updates = req.body
-
-    Order.findByID(id, (err, order) => {
-        if (err) {
-            return res.status(500).send(err)
-        }
-
-        order.findByIdAndUpdate(updates, (err) => {
-            if (err) {
-                return res.status(500).send(err)
-            }
-            res.json({ message: 'Order updated successfully' })
-            })
-        
-    })
-})
-
-router.delete("/:id", async (req, res) => { 
-    const id = req.params.id
-
-    Order.findByID(id, (err, order) => {
-        if (err) {
-            return res.status(500).send(err)
-        }
-        
-        order.remove((err) => {
-            if (err) {
-                return res.status(500).send(err)
-            }
-            res.json({ message: 'Order deleted successfully' })
-            })
-    
-    })
-})
-
-module.exports = router
+module.exports = router;

@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-
-const ProductSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        require: true,
-        unique: true
-    },
+const ProductSchema =  new Schema({
     description: {
         type: String,
         require: true,
@@ -15,14 +10,19 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    title: {
+        type: String,
+        require: true
+        
+    },
     storeID: { 
-        type: mongoose.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'store', 
         require: true },
     categoryID: { 
-        type: mongoose.Types.ObjectId, 
-        ref: 'category', 
-        require: true },
+            type: Schema.Types.ObjectId, 
+            ref: 'category', 
+            require: true },
     price: {
         type: Number,
         require: true
@@ -33,5 +33,5 @@ const ProductSchema = new mongoose.Schema({
     });
 
 
-ProductSchema.index({title: 'text'});
+ProductSchema.index({description: 'text', title: 'text'});
 module.exports = mongoose.model('Product', ProductSchema);

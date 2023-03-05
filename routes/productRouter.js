@@ -6,11 +6,10 @@ const verifyRoles = require('../middlewares/verifyRoles');
 
 
 router.route('/')
-    //.get(verifyRoles(ROLES_LIST.Master), getAllProducts)
-    .get(getAllProducts)
-    .post(createProduct)
-    .put(updateProduct)
-    .delete(deleteProduct);
+    .get(verifyRoles(ROLES_LIST.Master),getAllProducts)
+    .post(verifyRoles(ROLES_LIST.Admin),createProduct)
+    .put(verifyRoles(ROLES_LIST.Admin),updateProduct)
+    .delete(verifyRoles(ROLES_LIST.Admin),deleteProduct);
 
 router.route('/:id')
     .get(getSingleProduct);

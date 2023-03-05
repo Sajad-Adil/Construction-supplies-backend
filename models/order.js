@@ -26,11 +26,12 @@ const OrderSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "pending"
-    }
-},
-    { 
-        timestamps: true 
-    });
+    },
+    
+        createdAt: {type: Date,
+    default: Date.now} 
+    
+});
 
 function validateOrder(order) {
     const schema = {
@@ -43,5 +44,5 @@ function validateOrder(order) {
     
 return Joi.validate(order, schema);
 }
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = Order = mongoose.model('Order', OrderSchema);
 exports.validate = validateOrder;

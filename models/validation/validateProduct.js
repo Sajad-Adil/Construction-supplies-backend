@@ -10,7 +10,7 @@ function validateProduct(product) {
         .required(),
         description: Joi.string(),
         storeID: Joi.objectId().required(),
-        //categoryID: Joi.objectId().required(),
+        categoryID: Joi.objectId().required(),
         price: Joi.number()
         .min(0)
         .required(),

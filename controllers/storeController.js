@@ -1,5 +1,5 @@
 const Store = require('../models/store');
-const { validateStore} = require('../models/validation/validateStore')
+const { validateStore } = require('../models/validation/validateStore')
 
 const getAllStores = async (req, res) => {
     const stores = await Store.find()
@@ -22,7 +22,7 @@ const createStore = async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     const { ownerID, name , latitude, longitude, city, district } = req.body;
-    if (!ownerID || !name ) return res.status(400).json({ 'message': 'OwnerID and Store name are required.' });
+    if (!ownerID || !name || !latitude || !longitude ) return res.status(400).json({ 'message': 'OwnerID ,Store name  and location param are required.' });
 
     try {
         const result = await Store.create({

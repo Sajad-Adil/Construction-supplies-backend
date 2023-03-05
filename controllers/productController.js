@@ -37,7 +37,7 @@ const createProduct = async (req, res) => {
 
 
     const { storeID, title , description, price, stockQuantity, categoryID} = req.body;
-    if (!storeID || !title ) return res.status(400).json({ 'message': 'StoreID and Product name are required.' });
+    if (!title || !storeID ||!categoryID || !price || !stockQuantity) return res.status(400).json({ 'message': 'StoreID, CategoryID and Product name,price and stock quantity are required.' });
     let image
 
     if (req.files && req.files.length) {
@@ -56,6 +56,7 @@ const createProduct = async (req, res) => {
             "image": image
         });
 
+        
         console.log(result);
         res.status(201).json({ 'success': `New product created!` });
     } catch (err) {

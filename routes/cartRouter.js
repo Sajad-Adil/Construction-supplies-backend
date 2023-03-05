@@ -9,7 +9,7 @@ router.route('/')
     //.get(verifyRoles(ROLES_LIST.Master), getAllCarts)
     .get(getAllCarts)//master
     .post(createCart)
-    .delete(removeItem);//master
+    .delete(removeItem);
 
 router.route('/:id')
     .get(getCart);

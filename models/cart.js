@@ -20,7 +20,8 @@ const CartSchema = new mongoose.Schema({
                 require: true },
         }],
 
-        createdAt: date.now
+        createdAt:     {      type: Date,
+    default: Date.now} 
     },
 
     

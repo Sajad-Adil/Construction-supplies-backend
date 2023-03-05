@@ -7,16 +7,15 @@ const registerRouter = require('./routes/registerRouter');
 //const { request } = require('express');
 const authRouter = require('./routes/authRouter');
 const verifyJWT = require('./middlewares/verifyJWT');
-const refreshToken = require('./routes/refreshRouter')
+const refreshToken = require('./routes/refreshRouter');
 const cookieParser = require('cookie-parser');
 
-const userRouter = require('./routes/userRouter')
-const searchRouter = require('./routes/searchRouter')
+const userRouter = require('./routes/userRouter');
+const searchRouter = require('./routes/searchRouter');
 const storeRouter = require('./routes/storeRouter');
+const cartRouter = require('./routes/cartRouter');
 const verifyRoles = require('./middlewares/verifyRoles');
-
-
-const productRouter = require('./routes/productRouter')
+const productRouter = require('./routes/productRouter');
 
 app.use(express.json())
 app.use(cookieParser())
@@ -28,6 +27,7 @@ app.use("/api/refresh",refreshToken );
 //app.use('/logout', handleLogout);
 //app.use(verifyJWT);
 //app.use(verifyRoles);
+app.use("/api/cart",cartRouter);
 app.use("/api/user", userRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/store",storeRouter);

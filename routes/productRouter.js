@@ -3,13 +3,14 @@ const router = express.Router();
 const { getAllProducts, getSingleProduct, getProductsByCategory, getProductsByStore, createProduct, updateProduct, deleteProduct } = require('../controllers/productController');
 const ROLES_LIST = require('../config/rolesList');
 const verifyRoles = require('../middlewares/verifyRoles');
+const verifyJWT = require('../middlewares/verifyJWT')
 
 
 router.route('/')
-    .get(verifyRoles(ROLES_LIST.Master),getAllProducts)
-    .post(verifyRoles(ROLES_LIST.Admin),createProduct)
-    .put(verifyRoles(ROLES_LIST.Admin),updateProduct)
-    .delete(verifyRoles(ROLES_LIST.Admin),deleteProduct);
+    .get(getAllProducts)
+    .post(verifyJWT,verifyRoles(ROLES_LIST.Admin),createProduct)
+    .put(verifyJWT,verifyRoles(ROLES_LIST.Admin),updateProduct)
+    .delete(verifyJWT,verifyRoles(ROLES_LIST.Admin),deleteProduct);
 
 router.route('/:id')
     .get(getSingleProduct);
@@ -22,6 +23,8 @@ router.route('/findByCategory')
 
 
 module.exports = router;
+
+
 
 
 

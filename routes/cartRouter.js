@@ -11,5 +11,5 @@ router.route('/')
     .delete(verifyJWT, removeItem);
 
 router.route('/:id')
-    .get(getCart);
+    .get(verifyJWT,getCart);
 module.exports = router;

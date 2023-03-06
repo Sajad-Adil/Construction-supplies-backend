@@ -21,16 +21,14 @@ app.use(cookieParser())
 app.use("/api/register", registerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
-
-
 app.use('/logout', handleLogout);
-app.use("/api/user", userRouter);
 app.use("/api/search", searchRouter);
 
+app.use(verifyJWT);
+app.use("/api/user", userRouter);
 app.use("/api/store",storeRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/product",productRouter)
-app.use(verifyJWT);
 app.use("/api/order",orderRouter);
 
 

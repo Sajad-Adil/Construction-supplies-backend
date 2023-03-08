@@ -1,4 +1,5 @@
 require('dotenv').config();
+const functions = require('firebase-functions');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -15,22 +16,22 @@ const storeRouter = require('./routes/storeRouter');
 const cartRouter = require('./routes/cartRouter');
 const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter')
-
+const categoryRouter = require('./routes/categoryRouter')
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/register", registerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
+
+
 app.use('/logout', handleLogout);
 app.use("/api/search", searchRouter);
-
-app.use(verifyJWT);
+app.use("/api/product",productRouter);
 app.use("/api/user", userRouter);
-app.use("/api/store",storeRouter)
-app.use("/api/cart",cartRouter)
-app.use("/api/product",productRouter)
+app.use("/api/store",storeRouter);
+app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRouter);
-
+app.use("/api/category",categoryRouter);
 
 
 
@@ -40,4 +41,4 @@ app.listen(process.env.PORT || 5000, () => {
         console.log('app is listening on port', process.env.PORT || 5000)
 })
 
-
+exports.app = functions.https.onRequest(app);

@@ -1,5 +1,5 @@
 require('dotenv').config();
-const functions = require('firebase-functions');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -41,4 +41,4 @@ app.listen(process.env.PORT || 5000, () => {
         console.log('app is listening on port', process.env.PORT || 5000)
 })
 
-exports.app = functions.https.onRequest(app);
+

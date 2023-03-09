@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const connectDB = require('./config/dbConn')
+const cors = require('cors');
 const registerRouter = require('./routes/registerRouter');
 const authRouter = require('./routes/authRouter');
 const verifyJWT = require('./middlewares/verifyJWT');
@@ -19,6 +20,8 @@ const productRouter = require('./routes/productRouter')
 const categoryRouter = require('./routes/categoryRouter')
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
+
 app.use('/', require('./routes/root'));
 app.use("/api/register", registerRouter);
 app.use("/api/auth", authRouter);

@@ -19,6 +19,7 @@ const productRouter = require('./routes/productRouter')
 const categoryRouter = require('./routes/categoryRouter')
 app.use(express.json())
 app.use(cookieParser())
+app.use('/', require('./routes/root'));
 app.use("/api/register", registerRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
@@ -32,7 +33,6 @@ app.use("/api/store",storeRouter);
 app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRouter);
 app.use("/api/category",categoryRouter);
-
 
 
 connectDB();

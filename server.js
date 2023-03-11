@@ -3,24 +3,29 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const connectDB = require('./config/dbConn')
+const connectDB = require('./config/dbConn');
 const cors = require('cors');
 const registerRouter = require('./routes/registerRouter');
 const authRouter = require('./routes/authRouter');
 const verifyJWT = require('./middlewares/verifyJWT');
-const refreshToken = require('./routes/refreshRouter')
+const refreshToken = require('./routes/refreshRouter');
 const cookieParser = require('cookie-parser');
-const handleLogout = require('./routes/logoutRouter')
-const userRouter = require('./routes/userRouter')
-const searchRouter = require('./routes/searchRouter')
+const handleLogout = require('./routes/logoutRouter');
+const userRouter = require('./routes/userRouter');
+const searchRouter = require('./routes/searchRouter');
+const corsOptions = require('./config/corsOptions');
 const storeRouter = require('./routes/storeRouter');
 const cartRouter = require('./routes/cartRouter');
 const orderRouter = require('./routes/orderRouter');
-const productRouter = require('./routes/productRouter')
-const categoryRouter = require('./routes/categoryRouter')
+const productRouter = require('./routes/productRouter');
+const categoryRouter = require('./routes/categoryRouter');
+const credentials = require('./middlewares/credentials');
+
+
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
 
 app.use('/', require('./routes/root'));
 app.use("/api/register", registerRouter);

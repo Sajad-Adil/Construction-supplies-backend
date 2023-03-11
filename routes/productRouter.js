@@ -15,10 +15,10 @@ router.route('/')
 router.route('/:id')
     .get(getSingleProduct);
 
-router.route('/findByStore')
+router.route('/findByStore/:id')
     .get(getProductsByStore);
 
-router.route('/findByCategory')
+router.route('/findByCategory/:id')
     .get(getProductsByCategory);
 
 

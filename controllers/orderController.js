@@ -2,10 +2,11 @@ const Order = require('../models/order');
 const { validateOrder} = require('../models/validation/validateOrder')
 
 const getOrdersByStore = async (req, res) => {
-    const orders = await Order.find({storeId})
+    const orders = await Order.find({storeId: req.params.id })
     if (!orders) return res.status(204).json({ 'message': 'There is no Orders' });
     res.json(orders);
 }
+
 
 const getOrder = async (req, res) => {
     if (!req?.params?.id) return res.status(400).json({ "message": 'Order ID required' });

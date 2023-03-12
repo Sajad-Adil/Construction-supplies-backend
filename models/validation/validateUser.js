@@ -4,8 +4,8 @@ Joi.objectId = require('joi-objectid')(Joi)
 function validateUser(user) {
 
     const schema = Joi.object({
-        phoneNumber: Joi.string().pattern(/^07[0-9]{9}$/)
-        .messages({'string.pattern.base': `Please enter valid phone number.`})
+        phoneNumber: Joi.string()
+        .pattern(/^07[0-9]{9}$/, 'numbers')
         .required(),
         email: Joi.string().email({ minDomainSegments: 2 }),
         name: Joi.string().min(2).max(30).required(),

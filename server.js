@@ -12,18 +12,20 @@ const cookieParser = require('cookie-parser');
 const handleLogout = require('./routes/logoutRouter');
 const userRouter = require('./routes/userRouter');
 const searchRouter = require('./routes/searchRouter');
-const corsOptions = require('./config/corsOptions');
+//const corsOptions = require('./config/corsOptions');
 const storeRouter = require('./routes/storeRouter');
 const cartRouter = require('./routes/cartRouter');
 const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
 const categoryRouter = require('./routes/categoryRouter');
-const credentials = require('./middlewares/credentials');
+//const credentials = require('./middlewares/credentials');
 const cors = require('cors');
 
 
-app.use(credentials);
-app.use(cors(corsOptions));
+//app.use(credentials);
+app.use(cors({
+        origin: '*'
+}));
 app.use(express.json())
 app.use(cookieParser())
 

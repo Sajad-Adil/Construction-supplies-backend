@@ -19,13 +19,13 @@ const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
 const categoryRouter = require('./routes/categoryRouter');
 //const credentials = require('./middlewares/credentials');
-const cors = require('cors');
+// const cors = require('cors');
 
 
-//app.use(credentials);
-app.use(cors({
-        origin: '*'
-}));
+// //app.use(credentials);
+// app.use(cors({
+//         origin: '*'
+// }));
 app.use(express.json())
 app.use(cookieParser())
 

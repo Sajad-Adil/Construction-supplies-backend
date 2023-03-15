@@ -23,9 +23,9 @@ const categoryRouter = require('./routes/categoryRouter');
 
 
 // //app.use(credentials);
-// app.use(cors({
-//         origin: '*'
-// }));
+app.use(cors({
+        origin: '*'
+}));
 app.use(express.json())
 app.use(cookieParser())
 

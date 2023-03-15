@@ -21,12 +21,12 @@ const categoryRouter = require('./routes/categoryRouter');
 //const credentials = require('./middlewares/credentials');
 // const cors = require('cors');
 
-
-// //app.use(credentials);
-app.use(cors({
-        origin: '*'
-}));
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors({ credentials: true, origin: '*' }))
+app.options('*', cors())
+
+
 app.use(cookieParser())
 
 app.use('/', require('./routes/root'));

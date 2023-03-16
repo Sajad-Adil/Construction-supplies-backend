@@ -7,7 +7,7 @@ const handleLogin = async (req, res) => {
     if (!phoneNumber || !password) return res.status(400).json({ 'message': 'Phone number and password are required.' });
 
     const foundUser = await User.findOne({ phoneNumber: phoneNumber }).exec();
-    if (!foundUser) return res.sendStatus(401).json({'message': 'error num 1' }); //Unauthorized 
+    if (!foundUser) return res.sendStatus(401); //Unauthorized 
     
     const match = await bcrypt.compare(password, foundUser.password);
     if (match) {

@@ -16,13 +16,19 @@ const getStore = async (req, res) => {
     res.json(store);
 }
 
-
 const createStore = async (req, res) => {
     const { error } = validateStore(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { ownerID, name , latitude, longitude, city, district } = req.body;
-    if (!ownerID || !name || !latitude || !longitude ) return res.status(400).json({ 'message': 'OwnerID ,Store name  and location param are required.' });
+    const { ownerID, name , latitude, longitude, city, district, phoneNumber } = req.body;
+    if (!ownerID || !name || !latitude || !longitude|| !phoneNumber ) return res.status(400).json({ 'message': 'OwnerID ,Store name  and location param are required.' });
+    let image
+
+    if (req.files && req.files.length) {
+        image = `uploads/${req.files[0].filename}`
+    } else {
+        image = ''
+    }
 
     try {
         const result = await Store.create({
@@ -30,6 +36,8 @@ const createStore = async (req, res) => {
             "name": name,
             "latitude": latitude,
             "longitude": longitude,
+            "image": image,
+            "phoneNumber": phoneNumber,
             "city": city,
             "district": district
         });
@@ -52,6 +60,7 @@ const updateStore = async (req, res) => {
     }
     if (req.body?.ownerID) store.ownerID= req.body.ownerID;
     if (req.body?.name) store.name = req.body.name;
+    if (req.body?.phoneNumber) store.phoneNumber = req.body.phoneNumber;
     if (req.body?.latitude) store.latitude= req.body.latitude;
     if (req.body?.longitude) store.longitude= req.body.longitude;
     if (req.body?.city) store.city= req.body.city;

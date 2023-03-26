@@ -35,7 +35,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/refresh",refreshToken );
 
 
-app.use('/logout', handleLogout);
+app.use("/api/logout", handleLogout);
 app.use("/api/search", searchRouter);
 app.use("/api/product",productRouter);
 app.use("/api/user", userRouter);

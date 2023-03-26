@@ -11,10 +11,19 @@ const storeSchema = new mongoose.Schema({
         require: true, 
         unique: true },
 
-        latitude: { 
+    phoneNumber: { 
+        type: String, 
+        require: true, 
+        unique: true },
+
+    image: {
+        type: String,
+        require: true
+    },
+    latitude: { 
             type: Number,
             require: true },
-        longitude: { 
+    longitude: { 
             type: Number,
             require: true },
 
@@ -23,7 +32,6 @@ const storeSchema = new mongoose.Schema({
 
     
 })
-
 
 storeSchema.index({name: 'text'});
 module.exports = Store = mongoose.model('store', storeSchema);

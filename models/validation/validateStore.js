@@ -9,6 +9,9 @@ function validateStore(store) {
         .min(2)
         .max(255)
         .required(),
+        phoneNumber: Joi.string()
+        .pattern(/^07[0-9]{9}$/, 'numbers')
+        .required(),
         city: Joi.string(),
         district: Joi.string(),
         longitude: Joi.number().required(),

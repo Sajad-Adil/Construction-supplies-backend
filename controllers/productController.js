@@ -17,14 +17,14 @@ const getSingleProduct = async (req, res) => {
 }
 
 const getProductsByCategory = async (req, res) => {
-    const products = await Product.find({ categoryID });
+    const products = await Product.find({ categoryID: req.params.id });
     if (!products) return res.status(204).json({ 'message': 'No products found' });
     res.json(products);
     
 }
 
 const getProductsByStore = async (req, res) => {
-    const products = await Product.find({ storeID });
+    const products = await Product.find({ storeID: req.params.id });
     if (!products) return res.status(204).json({ 'message': 'No products found' });
     res.json(products);
     
@@ -96,8 +96,8 @@ const deleteProduct = async (req, res) => {
 module.exports = {
     getAllProducts,
     getSingleProduct,
-    getProductsByStore,
     getProductsByCategory,
+    getProductsByStore,
     createProduct,
     updateProduct,
     deleteProduct

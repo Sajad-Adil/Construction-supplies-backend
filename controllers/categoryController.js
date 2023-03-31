@@ -5,6 +5,14 @@ const getAllCategories = async (req, res) => {
     if (!categories) return res.status(204).json({ 'message': 'No categories found' });
     res.json(categories);
 }
+const getCategory = async (req, res) => {
+    if (!req?.params?.id) return res.status(400).json({ "message": 'Category ID required' });
+    const category = await Category.findOne({ _id: req.params.id }).exec();
+    if (!category) {
+        return res.status(204).json({ 'message': `Category ID ${req.params.id} not found` });
+    }
+    res.json(category);
+}
 
 const createCategory = async (req, res) => {
     
@@ -50,6 +58,7 @@ const deleteCategory = async (req, res) => {
 
 module.exports = {
     getAllCategories,
+    getCategory,
     createCategory,
     updateCategory,
     deleteCategory

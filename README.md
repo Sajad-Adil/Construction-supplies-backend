@@ -1,2 +1,2 @@
 # Construction-supplies-backend
-This is the backend of a construction supplies platform
+The backend for an E-commerce platform for construction supplies.
